@@ -1,0 +1,18 @@
+{
+  "cwd": "C:\\Users\\Utente\\Documents\\01 SVILUPPO\\Mysteryfy DEV\\f7-vue-firebase",
+  "type": [
+    "pwa"
+  ],
+  "name": "Firebase Auth",
+  "framework": "vue",
+  "template": "single-view",
+  "bundler": "vite",
+  "cssPreProcessor": false,
+  "theming": {
+    "customColor": false,
+    "color": "#007aff",
+    "darkMode": false,
+    "iconFonts": true
+  },
+  "customBuild": false
+}
