@@ -1,7 +1,7 @@
 import { initializeApp } from "firebase/app";
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 
-const firebaseApp = initializeApp({
+export const firebaseApp = initializeApp({
   apiKey: "AIzaSyAaO97TAGstKPBjjTcdnHdt2pjnTkd5KNk",
   authDomain: "gta-befair.firebaseapp.com",
   databaseURL: "https://gta-befair.firebaseio.com",

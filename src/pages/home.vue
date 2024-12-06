@@ -22,6 +22,21 @@
 </template>
 
 <script setup>
-import firebase from '';
+import { ref } from 'vue';
+import { GoogleAuthProvider, signInWithRedirect, signOut } from 'firebase/auth';
+import { useFirebaseAuth } from 'vuefire';
+
+const auth = useFirebaseAuth()
+
+// display errors if any
+const error = ref(null)
+const provider = new GoogleAuthProvider();
+
+function loginWithGoogle() {
+  signInWithRedirect(auth, provider).catch((reason) => {
+    console.error('Failed signinRedirect', reason)
+    error.value = reason
+  })
+}
 
 </script>
