@@ -17,7 +17,7 @@ import '../css/app.css';
 // Import App Component
 import App from '../components/app.vue';
 
-// Import Firebase
+// Import Vueifre and firebase
 import { VueFire, VueFireAuth } from 'vuefire';
 import { firebaseApp } from './firebaseConfig';
 
@@ -26,13 +26,12 @@ Framework7.use(Framework7Vue);
 
 // Init App
 const app = createApp(App);
-
 app.use(VueFire, {
-    firebaseApp,
+  firebaseApp,
     modules: [
-        VueFireAuth(),
-    ]
-})
+      VueFireAuth(),
+    ],
+  })
 
 // Register Framework7 Vue components
 registerComponents(app);

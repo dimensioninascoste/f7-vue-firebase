@@ -18,25 +18,59 @@
     </f7-block>
     <f7-button @click="loginWithGoogle" fill>Login With Google</f7-button>
 
+    <h2>Hello {{ user }}</h2>
+
   </f7-page>
 </template>
 
 <script setup>
-import { ref } from 'vue';
-import { GoogleAuthProvider, signInWithRedirect, signOut } from 'firebase/auth';
-import { useFirebaseAuth } from 'vuefire';
+import  { signInWithRedirect, getRedirectResult, GoogleAuthProvider, signInWithPopup} from 'firebase/auth';
+import { ref, onMounted } from 'vue';
+import { useFirebaseAuth, useCurrentUser, getCurrentUser, useIsCurrentUserLoaded } from 'vuefire';
 
-const auth = useFirebaseAuth()
+const auth = useFirebaseAuth();
+// const user = useIsCurrentUserLoaded()
+// const user = await getCurrentUser();
 
 // display errors if any
 const error = ref(null)
-const provider = new GoogleAuthProvider();
-
 function loginWithGoogle() {
-  signInWithRedirect(auth, provider).catch((reason) => {
+  const provider = new GoogleAuthProvider();
+  error.value = null
+  
+  /* signInWithPopup(auth, provider).catch((reason) => {
+    console.error('Failed sign', reason)
+    error.value = reason
+    getUser();
+  }) */
+
+  signInWithRedirect(auth, provider)
+  .then(() => {
+    console.log(userinfo.profile)
+  })
+  .catch((reason) => {
     console.error('Failed signinRedirect', reason)
+    console.log(user)
     error.value = reason
   })
 }
+
+async function getUser() {
+  debugger
+  user.value = await getCurrentUser()  
+}
+
+onMounted(() => {
+  getRedirectResult(auth).catch((reason) => {
+    console.error('Failed redirect result', reason)
+    error.value = reason
+  });
+  if(useIsCurrentUserLoaded) {
+    const user = useCurrentUser();
+    
+    console.log("User loggedin", user);
+    console.log("User token", user.value);
+  }
+})
 
 </script>
