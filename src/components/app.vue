@@ -80,6 +80,10 @@
   import routes from '../js/routes.js';
   import store from '../js/store';
 
+  import { getRedirectResult } from 'firebase/auth';
+  import { firebaseApp } from '../js/firebaseConfig.js';
+  import { useFirebaseAuth } from 'vuefire';
+
   export default {
     setup() {
 
@@ -109,12 +113,26 @@
         f7.dialog.alert('Username: ' + username.value + '<br>Password: ' + password.value, () => {
           f7.loginScreen.close();
         });
-      }
+      };
+
+      const auth = useFirebaseAuth();
+
       onMounted(() => {
-        f7ready(() => {
+        f7ready(async () => {
+          debugger
 
+          try {
+            const result = await getRedirectResult(auth);
+            if(result) {
+              const user = result.user;
+              const token = result.getIdToken();
 
-          // Call F7 APIs here
+              console.log('Utente autenticato:', user);
+              console.log('Token di autenticazione:', token);
+            }
+          } catch (error) {
+            console.error('Errore durante getRedirectResult:', error);
+          }
         });
       });
 
@@ -126,4 +144,6 @@
       }
     }
   }
+
+
 </script>
